@@ -1,0 +1,270 @@
+﻿@model SectionsIndexViewModel
+@inject IMediator Mediator
+
+@{
+    ViewData["Title"] = "Secciones";
+}
+
+<div class="pagetitle">
+    <h1>@ViewData["Title"]</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Inicio</a></li>
+            <li class="breadcrumb-item active">@ViewData["Title"]</li>
+        </ol>
+    </nav>
+</div>
+
+<section class="section dashboard">
+
+    <div class="card">
+
+        <div class="card-header">
+            <div class="row">
+
+                <h3 class="m-0 font-weight-bold text-primary col-md-11">@ViewData["Title"]</h3>
+                @if (await Mediator.Send(new UserHasPermissionQuery 
+                { 
+                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    PermissionCode = PermissionCodesCatalog.CREATE_SECTIONS 
+                }))
+                {
+                    <div class="col-md-1">
+                        <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i></a>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="card-body mt-3">
+
+            <form method="GET" asp-action="Index" class="row g-2 aling-items-end mb-4">
+                <input type="hidden" name="page" value="1" />
+                    
+                <div class="col-md-3">
+                    <label class="form-label small text-muted mb-0"> Nombre: </label>
+                    <input type="text"
+                           name="nameFilter"
+                           class="form-control"
+                           value="@Model.FilterName"
+                           placeholder="Buscar por nombre..." />
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label small text-muted mb-0"> Estado </label>
+                    <select name="isActiveFilter" class="form-select">
+                        @if (Model.FilterIsActive == null)
+                        {
+                            <option value="" selected>Todos</option>
+                            <option value="true" >Activas</option>
+                            <option value="false">Inactivas</option>
+                        }
+                        else if (Model.FilterIsActive == true)
+                        {
+                            <option value="">Todos</option>
+                            <option value="true" selected>Activas</option>
+                            <option value="false">Inactivas</option>
+                        }
+                        else
+                        {
+                            <option value="">Todos</option>
+                            <option value="true">Activas</option>
+                            <option value="false" selected>Inactivas</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label small text-muted mb-0">Por página</label>
+
+                    @{
+                        int[] pageSizePresets = new[] { 5, 10, 20, 50 };
+                        int currentPageSize = Model.List.PageSize;
+                    }
+
+                    <select name="pageSize" class="form-select">
+                        @foreach(int size in pageSizePresets)
+                        {
+                            @if(currentPageSize == size)
+                            {
+                                <option value="@size" selected>@size</option>
+                            }
+                            else
+                            {
+                                <option value="@size">@size</option>
+                            }
+                        }
+                    </select>
+                </div>
+                
+                <div class="col-md-5">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a>
+                </div>
+
+            </form>
+
+            <table class="table table-bordered">
+                    
+                <thead>
+                    <tr>
+                        <th>Sección</th>
+                        <th>Activa</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach(var item in Model.List.Items)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>
+                                @if(item.IsActive)
+                                {
+                                    <span class="text-success"><i class="bi bi-bookmark-check-fill"></i></span>
+                                }
+                                else
+                                {
+                                    <span class="text-secondary"><i class="bi bi-bookmark-x-fill"></i></span>
+                                }                             
+
+                            </td>
+                            <td>
+                                
+                                @if (await Mediator.Send(new UserHasPermissionQuery 
+                                { 
+                                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                                    PermissionCode = PermissionCodesCatalog.EDIT_SECTIONS 
+                                }))
+                                {
+                                    @if (item.IsActive)
+                                    {
+                                        <form method="POST" asp-action="Deactivate" asp-route-id="@item.Id" style="display: contents;">
+                                            <button type="submit"
+                                                    class="btn btn-info"
+                                                    data-bs-toogle="tooltip"
+                                                    data-bs-placement="top" 
+                                                    title="Activar sección">
+                                                <i class="bi bi-toggle-on"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form method="POST" asp-action="Activate" asp-route-id="@item.Id" style="display: contents;">
+                                            <button type="submit"
+                                                    class="btn btn-secondary"
+                                                    data-bs-toogle="tooltip"
+                                                    data-bs-placement="top" 
+                                                    title="Desctivar sección">
+                                                <i class="bi bi-toggle-off"></i>
+                                            </button>
+                                        </form>
+                                    }
+
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </a>
+                                }
+
+                                @if (await Mediator.Send(new UserHasPermissionQuery 
+                                { 
+                                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                                    PermissionCode = PermissionCodesCatalog.DELETE_SECTIONS 
+                                }))
+                                {
+                                    <form asp-action="Delete" asp-route-id="@item.Id" method="POST" style="display: contents;">                                    
+                                        <button type="submit" class="btn btn-sm btn-danger btnDelete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+            @if (Model.List.TotalPages > 1)
+            {
+                <nav>
+                    <ul class="pagination justify-content-center mb-0">
+
+                        @* Anterior *@
+                        <li class="page-item @(Model.List.HasPreviousPage ? "" : "disabled")">
+                            <a class="page-link"
+                               asp-action="Index"
+                               asp-route-page="@(Model.List.PageNumber - 1)"
+                               asp-route-pageSize="@Model.List.PageSize"
+                               asp-route-nameFilter="@Model.FilterName"
+                               asp-route-isActiveFilter="@Model.FilterIsActive">
+                                <span aria-hidden="true">Anterior</span>
+                            </a>
+                        </li>
+
+                        <li class="page-item disabled">
+                            <span class="page-link">@Model.List.PageNumber / @Model.List.TotalPages</span>
+                        </li>
+                        
+                        @* Siguiente *@
+                        <li class="page-item @(Model.List.HasNextPage ? "" : "disabled")">
+                            <a class="page-link"
+                               asp-action="Index"
+                               asp-route-page="@(Model.List.PageNumber + 1)"
+                               asp-route-pageSize="@Model.List.PageSize"
+                               asp-route-nameFilter="@Model.FilterName"
+                               asp-route-isActiveFilter="@Model.FilterIsActive">
+                                <span aria-hidden="true">Siguiente</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+
+                <p class="text-muted text-center small mt-2 mb-0">@Model.List.TotalCount registros</p>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function(){
+        
+             $('.btnDelete').click(function(event) {
+                    
+                event.preventDefault();
+
+                Swal.fire({
+                  icon: "question",
+                  title: "¿Desea eliminar la sección?",
+                  text: "No podrá revertirlo",
+                  showCancelButton: true
+                }).then((result) => {
+                        
+                    if (result.isConfirmed) {
+                        
+                        const form = $(this).closest('form');
+
+                        form.submit();
+                    }
+                });
+            });
+
+            $('[data-bs-toggle="tooltip"]').each(function() {
+
+                new bootstrap.Tooltip(this);
+            });
+        });
+
+    </script>
+}

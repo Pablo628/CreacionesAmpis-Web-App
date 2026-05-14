@@ -1,0 +1,19 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error</h1>
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <p>@Model.Message</p>
+}
+else
+{
+    <p>Algo salió mal.</p>
+}
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Volver al inicio</a>
+</p>
