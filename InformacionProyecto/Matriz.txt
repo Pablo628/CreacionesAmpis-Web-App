@@ -1,0 +1,249 @@
+# Resumen Técnico del Sistema - Creaciones Ampis
+
+---
+
+## DESCRIPCIÓN GENERAL DEL SISTEMA
+
+Creaciones Ampis es una aplicación web diseñada para la gestión integral de productos y pedidos, fundamentada en un modelo de Control de Acceso Basado en Roles (RBAC). El sistema garantiza una administración segura de la publicación de catálogos y el seguimiento de órdenes, asegurando que cada usuario interactúe exclusivamente con las funcionalidades permitidas según su perfil.
+
+A diferencia de los sistemas de gestión de almacenes convencionales, la plataforma optimiza la operatividad asumiendo disponibilidad constante de stock, lo que elimina la complejidad de reportes contables o auditorías de inventario físico. El flujo de trabajo se enfoca en el seguimiento progresivo del pedido con estados que van desde "Recibido" hasta "En confección" y finalmente "Listo". Las excepciones como cancelaciones o devoluciones se gestionan externamente mediante canales de comunicación directa como WhatsApp.
+
+Los módulos de reporte se concentran específicamente en indicadores de ventas y rotación de productos, cumpliendo con el objetivo principal de proporcionar un entorno seguro, organizado y eficiente para la administración del proceso comercial.
+
+---
+
+## ESTRUCTURA DE MÓDULOS Y FUNCIONES
+
+### MÓDULO 1: AUTHENTICATION (Autenticación)
+
+Este módulo gestiona todo lo relacionado con el acceso y la identidad del usuario dentro del sistema.
+
+**Funciones incluidas:**
+
+- **Log in / Sign up:** Permite a los usuarios iniciar sesión en el sistema o registrarse como nuevos usuarios.
+- **Log out:** Permite cerrar la sesión activa de forma segura.
+- **Change password:** Funcionalidad para modificar la contraseña actual del usuario.
+- **View my profile:** Permite visualizar la información del perfil personal del usuario.
+- **Update my user information:** Habilita la actualización de datos personales como nombre, dirección o teléfono.
+- **Recover password:** Sistema de recuperación de contraseña para usuarios que la han olvidado.
+- **Accept/Decline receiving promotions:** Gestión de preferencias para recibir o rechazar comunicaciones promocionales.
+
+---
+
+### MÓDULO 2: PUBLIC CATALOG (Catálogo Público)
+
+Este módulo permite la navegación y consulta del catálogo de productos disponibles para todos los usuarios.
+
+**Funciones incluidas:**
+
+- **View product and category catalog:** Navegación completa por el catálogo de productos organizados por categorías.
+- **View details, photos, colors, and sizes:** Visualización detallada de cada producto incluyendo fotografías, colores disponibles y tallas.
+- **View size guide and material information:** Consulta de guías de tallas para facilitar la elección correcta e información sobre los materiales utilizados en la confección.
+
+---
+
+### MÓDULO 3: CATALOG MANAGEMENT (Gestión de Catálogo)
+
+Este módulo proporciona herramientas administrativas para la gestión interna del catálogo de productos.
+
+**Funciones incluidas:**
+
+- **View product and category list (Internal view):** Vista administrativa interna que muestra todos los productos y categorías con información detallada para gestión.
+- **Update product stock:** Permite actualizar el estado de disponibilidad de los productos en el catálogo.
+
+---
+
+### MÓDULO 4: ORDERS - CART (Pedidos - Carrito)
+
+Este módulo gestiona el proceso de compra desde la selección de productos hasta la confirmación del pedido.
+
+**Funciones incluidas:**
+
+- **Add products to cart / Start order:** Permite agregar productos al carrito de compras e iniciar el proceso de pedido.
+- **Add customization notes:** Funcionalidad para añadir notas de personalización especificando detalles como tipo de encaje u otras preferencias.
+- **Checkout:** Proceso de finalización del pedido donde se confirman los detalles, la dirección de entrega y el método de pago seleccionado.
+
+---
+
+### MÓDULO 5: ORDER MANAGEMENT (Gestión de Pedidos)
+
+Este módulo permite el seguimiento y administración de los pedidos del sistema.
+
+**Funciones incluidas:**
+
+- **View my historical and active orders:** Permite a los clientes consultar su historial de pedidos anteriores y el estado de los pedidos activos.
+- **View global order list:** Vista administrativa de todos los pedidos del sistema para su gestión centralizada.
+- **Update order status:** Permite actualizar el estado de los pedidos a través de las diferentes etapas como Recibido, En producción, Listo, etc.
+
+---
+
+### MÓDULO 6: PAYMENTS AND SHIPPING (Pagos y Envíos)
+
+Este módulo gestiona los procesos de pago y asignación de métodos de entrega.
+
+**Funciones incluidas:**
+
+- **Upload payment receipt:** Permite a los clientes subir el comprobante de pago mediante captura de pantalla como evidencia de la transacción realizada.
+- **Verify/Approve payment:** Funcionalidad administrativa para verificar y aprobar los pagos recibidos por transferencia, Nequi u otros métodos.
+- **Assign delivery method:** Permite seleccionar el método de entrega preferido como recogida en estación de metro o pago contra entrega.
+
+---
+
+### MÓDULO 7: CLIENTS AND REPORTS (Clientes y Reportes)
+
+Este módulo proporciona herramientas para la gestión de clientes y generación de reportes de negocio.
+
+**Funciones incluidas:**
+
+- **View registered customer list:** Acceso a la lista completa de clientes registrados en el sistema con su información de contacto y actividad.
+- **View sales and best-seller reports:** Generación y consulta de reportes de ventas incluyendo análisis de productos más vendidos y tendencias de rotación.
+
+---
+
+### MÓDULO 8: SETTINGS (Configuración)
+
+Este módulo permite la configuración de políticas y parámetros generales del sistema.
+
+**Funciones incluidas:**
+
+- **Edit policies:** Edición de las políticas del sistema incluyendo Política de Privacidad, Política de Devoluciones y Política de Envíos.
+
+---
+
+## PERMISOS DETALLADOS POR ROL
+
+### ROL: VISITOR (Anonymous) - Visitante Anónimo
+
+El visitante anónimo es cualquier usuario que accede al sistema sin haber iniciado sesión. Este rol está diseñado para permitir la exploración del catálogo y facilitar el proceso de registro.
+
+**Permisos en el módulo Authentication:**
+El visitante puede iniciar sesión o registrarse en el sistema, cambiar su contraseña y recuperar la contraseña en caso de olvido. No tiene acceso a ver o actualizar su perfil ya que aún no está autenticado, ni puede cerrar sesión porque no tiene una sesión activa. Tampoco puede gestionar preferencias de promociones.
+
+**Permisos en el módulo Public Catalog:**
+Tiene acceso completo a la visualización del catálogo público. Puede navegar por productos y categorías, ver todos los detalles incluyendo fotos, colores y tallas, y consultar las guías de tallas e información de materiales.
+
+**Permisos en el módulo Catalog Management:**
+No tiene acceso a este módulo. La gestión interna del catálogo está restringida a roles administrativos.
+
+**Permisos en el módulo Orders (Cart):**
+Puede agregar productos al carrito e incluir notas de personalización. Sin embargo, no puede completar el proceso de checkout ya que esto requiere estar autenticado como cliente registrado.
+
+**Permisos en el módulo Order Management:**
+No tiene acceso a este módulo. No puede ver pedidos ya que no tiene un historial asociado ni credenciales para acceder a la gestión global.
+
+**Permisos en el módulo Payments and Shipping:**
+No tiene acceso a ninguna función de este módulo.
+
+**Permisos en el módulo Clients and Reports:**
+No tiene acceso a este módulo.
+
+**Permisos en el módulo Settings:**
+No tiene acceso a este módulo.
+
+---
+
+### ROL: ADMINISTRATOR - Administrador
+
+El administrador posee el nivel más alto de privilegios en el sistema. Es responsable de la gestión completa de la plataforma, incluyendo configuración, reportes y supervisión general de todas las operaciones.
+
+**Permisos en el módulo Authentication:**
+Puede cerrar sesión, ver su perfil y actualizar su información personal. No necesita las funciones de registro, inicio de sesión, cambio de contraseña básico o recuperación ya que estas son funciones para usuarios no autenticados o en proceso de autenticación. No gestiona preferencias de promociones ya que esta es una función orientada al cliente.
+
+**Permisos en el módulo Public Catalog:**
+Tiene acceso completo al catálogo público. Puede ver todos los productos, categorías, detalles, fotografías, colores, tallas, guías de tallas e información de materiales.
+
+**Permisos en el módulo Catalog Management:**
+Tiene acceso completo a la gestión del catálogo. Puede ver la lista interna de productos y categorías, y actualizar el estado de stock de los productos.
+
+**Permisos en el módulo Orders (Cart):**
+No tiene permisos en este módulo. El administrador no realiza compras a través del sistema; su función es gestionar, no comprar.
+
+**Permisos en el módulo Order Management:**
+Puede ver la lista global de todos los pedidos del sistema y actualizar el estado de cualquier pedido. No tiene la función de ver pedidos personales ya que su rol no es de cliente comprador.
+
+**Permisos en el módulo Payments and Shipping:**
+Puede verificar y aprobar los pagos realizados por los clientes. No sube comprobantes ni asigna métodos de entrega ya que estas son funciones del cliente.
+
+**Permisos en el módulo Clients and Reports:**
+Tiene acceso completo a este módulo. Puede ver la lista de clientes registrados y consultar todos los reportes de ventas y productos más vendidos. Es el único rol junto con el Order Manager que puede ver clientes, pero es exclusivo en el acceso a reportes de ventas.
+
+**Permisos en el módulo Settings:**
+Tiene acceso exclusivo a la edición de políticas del sistema incluyendo privacidad, devoluciones y envíos. Este es un privilegio único del administrador.
+
+---
+
+### ROL: ORDER MANAGER - Gestor de Pedidos
+
+El gestor de pedidos es un rol operativo diseñado para manejar las actividades diarias relacionadas con el procesamiento de pedidos y la gestión del catálogo, sin acceso a funciones estratégicas o de configuración del sistema.
+
+**Permisos en el módulo Authentication:**
+Puede cerrar sesión, ver su perfil y actualizar su información personal. Al igual que el administrador, no requiere funciones de registro o recuperación de contraseña en su operación normal.
+
+**Permisos en el módulo Public Catalog:**
+Tiene acceso completo al catálogo público con las mismas capacidades de visualización que todos los roles autenticados.
+
+**Permisos en el módulo Catalog Management:**
+Tiene acceso completo para ver la lista interna de productos y categorías, y para actualizar el stock de productos. Comparte estos permisos con el administrador.
+
+**Permisos en el módulo Orders (Cart):**
+No tiene permisos en este módulo. Su función es gestionar pedidos existentes, no crear nuevos pedidos como cliente.
+
+**Permisos en el módulo Order Management:**
+Puede ver la lista global de pedidos y actualizar el estado de los mismos. Tiene las mismas capacidades que el administrador en este módulo para poder gestionar el flujo operativo de los pedidos.
+
+**Permisos en el módulo Payments and Shipping:**
+Puede verificar y aprobar pagos. Comparte esta responsabilidad con el administrador para asegurar la continuidad operativa.
+
+**Permisos en el módulo Clients and Reports:**
+Puede ver la lista de clientes registrados, pero no tiene acceso a los reportes de ventas y productos más vendidos. Esta limitación diferencia claramente su rol operativo del rol estratégico del administrador.
+
+**Permisos en el módulo Settings:**
+No tiene acceso a este módulo. La configuración de políticas está reservada exclusivamente para el administrador.
+
+---
+
+### ROL: REGISTERED CUSTOMER - Cliente Registrado
+
+El cliente registrado es un usuario autenticado que utiliza el sistema para realizar compras. Tiene acceso completo al ciclo de compra y seguimiento de sus propios pedidos.
+
+**Permisos en el módulo Authentication:**
+Puede cerrar sesión, ver su perfil, actualizar su información personal y gestionar sus preferencias de recepción de promociones. Esta última función es exclusiva de este rol, ya que es el único interesado en recibir comunicaciones comerciales. No necesita las funciones de registro o recuperación ya que ya está autenticado.
+
+**Permisos en el módulo Public Catalog:**
+Tiene acceso completo al catálogo público. Puede navegar, ver detalles, fotos, colores, tallas, guías de tallas e información de materiales.
+
+**Permisos en el módulo Catalog Management:**
+No tiene acceso a este módulo. La gestión interna del catálogo no corresponde al perfil de cliente.
+
+**Permisos en el módulo Orders (Cart):**
+Tiene acceso completo a todas las funciones de compra. Puede agregar productos al carrito, incluir notas de personalización con especificaciones como tipo de encaje, y completar el proceso de checkout confirmando detalles, dirección y método de pago. Es el único rol que puede completar el checkout.
+
+**Permisos en el módulo Order Management:**
+Puede ver su historial de pedidos y sus pedidos activos. No tiene acceso a la lista global de pedidos ni puede actualizar estados, ya que estas son funciones administrativas.
+
+**Permisos en el módulo Payments and Shipping:**
+Puede subir el comprobante de pago como evidencia de su transacción y asignar su método de entrega preferido, ya sea recogida en estación de metro o pago contra entrega. No puede verificar ni aprobar pagos ya que esta es una función administrativa.
+
+**Permisos en el módulo Clients and Reports:**
+No tiene acceso a este módulo. La información de otros clientes y los reportes de negocio están restringidos a roles administrativos.
+
+**Permisos en el módulo Settings:**
+No tiene acceso a este módulo.
+
+---
+
+## RESUMEN DE PRIVILEGIOS EXCLUSIVOS POR ROL
+
+**Visitor (Anonymous):** Es el único rol que puede registrarse en el sistema, iniciar sesión por primera vez, solicitar cambio de contraseña inicial y recuperar contraseña olvidada. Estas funciones son el punto de entrada al sistema.
+
+**Administrator:** Es el único rol con acceso a los reportes de ventas y productos más vendidos. También es el único que puede editar las políticas del sistema (privacidad, devoluciones, envíos). Estas exclusividades reflejan su responsabilidad estratégica sobre el negocio.
+
+**Order Manager:** No posee funciones exclusivas. Su conjunto de permisos es un subconjunto del administrador, enfocado en las operaciones diarias sin acceso a configuración ni reportes estratégicos.
+
+**Registered Customer:** Es el único rol que puede completar el proceso de checkout, subir comprobantes de pago, asignar método de entrega, ver su historial personal de pedidos y gestionar sus preferencias de promociones. Estas exclusividades reflejan que es el único rol orientado a la experiencia de compra.
+
+---
+
+## CONCLUSIÓN
+
+El sistema Creaciones Ampis implementa una arquitectura de ocho módulos funcionales con cuatro roles claramente diferenciados. La separación de responsabilidades asegura que los visitantes puedan explorar y preparar compras sin compromiso, los clientes registrados completen el ciclo de compra de forma autónoma, los gestores de pedidos manejen la operación diaria sin acceso a información estratégica, y los administradores mantengan control total sobre la configuración y el análisis del negocio.

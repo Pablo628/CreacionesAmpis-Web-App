@@ -1,0 +1,85 @@
+erDiagram
+    %% ENTIDADES y ATRIBUTOS (PK = clave primaria, FK = clave foránea)
+    CLIENTS {
+        int Id_Client PK
+        string Name
+        string Email_Address
+        string Tel
+        boolean Acept_promotions
+        string Preferred_Channel
+    }
+
+    ADDRESSES {
+        int id_Address PK
+        int id_client FK
+        string Address
+        string City
+        string Reference
+    }
+
+    ORDERS {
+        int Id_Order PK
+        int id_client FK
+        int id_Address FK
+        date Date
+        string State
+        decimal Total
+    }
+
+    ORDERDETAILS {
+        int id_Detail PK
+        int id_Order FK
+        int id_Product FK
+        int Quantity
+        decimal Unit_Price
+        decimal Subtotal
+        string Size
+        string Color
+        string Personalization_notes
+    }
+
+    PRODUCTS {
+        int id_Product PK
+        string Name
+        string Description
+        decimal Price
+        int Stock
+        int id_Category FK
+        boolean is_personality 
+    }
+
+    CATEGORIES {
+        int id_Category PK
+        string Name
+    }
+
+    PAYMENTS {
+        int id_payment PK
+        int id_Order FK
+        string Payment_method
+        date Date
+        string Payment_type
+    }
+
+    SHIPMENTS {
+        int id_Shipment PK
+        int id_Order FK
+        string Delivery_method
+        decimal Shipping_cost
+        string Shipping_state
+        date Delivery_date
+    }
+
+    %% RELACIONES (cardinalidades corregidas según imagen)
+    CLIENTS ||--o{ ORDERS : "places"
+    CLIENTS ||--o{ ADDRESSES : "has"
+    
+    %% CORRECCIÓN: N Pedidos usan 1 Dirección (FK está en ORDERS)
+    ORDERS }o--|| ADDRESSES : "uses"
+
+    ORDERS ||--o{ ORDERDETAILS : "contains"
+    PRODUCTS ||--o{ ORDERDETAILS : "included_in"
+    CATEGORIES ||--o{ PRODUCTS : "classifies"
+
+    ORDERS ||--o{ PAYMENTS : "paid_by"
+    ORDERS ||--o{ SHIPMENTS : "shipped_by"
