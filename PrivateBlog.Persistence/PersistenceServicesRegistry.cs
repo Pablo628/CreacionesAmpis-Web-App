@@ -21,7 +21,6 @@ namespace PrivateBlog.Persistence
 
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
             services.AddScoped<ISectionsRepository, SectionsRepository>();
-            services.AddScoped<IBlogsRepository, BlogsRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IRolesRepository, RolesRepository>();

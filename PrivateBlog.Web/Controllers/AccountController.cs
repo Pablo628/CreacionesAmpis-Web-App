@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PrivateBlog.Application.UseCases.Account.Commands.Login;
 using PrivateBlog.Application.UseCases.Account.Commands.Logout;
-using PrivateBlog.Application.UseCases.Blogs.Commands.CreateBlog;
 using PrivateBlog.Application.UseCases.Sections.Queries.GetSectionsOptions;
 using PrivateBlog.Application.Utilities.Mediator;
 using PrivateBlog.Web.DTOs.Account;
-using PrivateBlog.Web.DTOs.Blogs;
 
 namespace PrivateBlog.Web.Controllers
 {

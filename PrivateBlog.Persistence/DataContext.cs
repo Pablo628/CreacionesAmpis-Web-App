@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PrivateBlog.Domain.Entities.Account;
-using PrivateBlog.Domain.Entities.Blogs;
 using PrivateBlog.Domain.Entities.Sections;
 using PrivateBlog.Persistence.Entities;
 
@@ -15,7 +14,6 @@ namespace PrivateBlog.Persistence
         }
 
         public DbSet<Section> Sections { get; set; }
-        public DbSet<Blog> Blogs { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }

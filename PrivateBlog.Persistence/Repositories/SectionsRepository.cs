@@ -41,7 +41,7 @@ namespace PrivateBlog.Persistence.Repositories
 
         public async Task<bool> HasArticlesAsync(Guid id)
         {
-            return await _context.Blogs.AnyAsync(b => b.SectionId == id);
+            return await Task.FromResult(false); // ToDo: Implmentar verificación real cuando se agreguen otras relaciones
         }
     }
 }
