@@ -1,15 +1,18 @@
-﻿using PrivateBlog.Domain.Entities.Sections;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PrivateBlog.Domain.Entities.Sections;
+using System;
+using PrivateBlog.Persistence.Data;
+using System.Collections.Generic;
+using PrivateBlog.Persistence.Data;
+using System.Text;
+using PrivateBlog.Persistence.Data;
 
 namespace PrivateBlog.Persistence.Seeding
 {
     internal class SectionsSeeder : ISeedable
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public SectionsSeeder(DataContext context)
+        public SectionsSeeder(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -42,3 +45,4 @@ namespace PrivateBlog.Persistence.Seeding
         }
     }
 }
+

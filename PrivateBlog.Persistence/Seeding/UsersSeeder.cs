@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using PrivateBlog.Application.Contracts.Security;
 using PrivateBlog.Domain.Entities.Account;
 using PrivateBlog.Persistence.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
+using PrivateBlog.Persistence.Data;
+using System.Collections.Generic;
+using PrivateBlog.Persistence.Data;
+using System.Text;
+using PrivateBlog.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace PrivateBlog.Persistence.Seeding
@@ -12,9 +15,9 @@ namespace PrivateBlog.Persistence.Seeding
     public class UsersSeeder
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public UsersSeeder(UserManager<ApplicationUser> userManager, DataContext context)
+        public UsersSeeder(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _context = context;
@@ -110,3 +113,4 @@ namespace PrivateBlog.Persistence.Seeding
         }
     }
 }
+

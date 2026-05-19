@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+using PrivateBlog.Persistence.Data;
+using Microsoft.EntityFrameworkCore;
 using PrivateBlog.Application.Contracts.Pagination;
 using PrivateBlog.Application.Contracts.Repositories;
 using PrivateBlog.Domain.Entities.Sections;
@@ -8,9 +9,9 @@ namespace PrivateBlog.Persistence.Repositories
 {
     public class SectionsRepository : Repository<Section>, ISectionsRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public SectionsRepository(DataContext context) : base(context)
+        public SectionsRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
@@ -41,7 +42,8 @@ namespace PrivateBlog.Persistence.Repositories
 
         public async Task<bool> HasArticlesAsync(Guid id)
         {
-            return await Task.FromResult(false); // ToDo: Implmentar verificación real cuando se agreguen otras relaciones
+            return await Task.FromResult(false); // ToDo: Implmentar verificaci�n real cuando se agreguen otras relaciones
         }
     }
 }
+

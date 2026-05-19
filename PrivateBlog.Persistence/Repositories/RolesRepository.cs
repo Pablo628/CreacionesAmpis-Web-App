@@ -1,21 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PrivateBlog.Application.Contracts.Pagination;
 using PrivateBlog.Application.Contracts.Repositories;
 using PrivateBlog.Application.UseCases.Roles.Queries.GetRolesList;
 using PrivateBlog.Domain.Entities.Account;
 using PrivateBlog.Domain.Exceptions;
 using PrivateBlog.Persistence.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
+using PrivateBlog.Persistence.Data;
+using System.Collections.Generic;
+using PrivateBlog.Persistence.Data;
+using System.Text;
+using PrivateBlog.Persistence.Data;
 
 namespace PrivateBlog.Persistence.Repositories
 {
     public class RolesRepository : IRolesRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public RolesRepository(DataContext context)
+        public RolesRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -143,3 +146,4 @@ namespace PrivateBlog.Persistence.Repositories
         }
     }
 }
+

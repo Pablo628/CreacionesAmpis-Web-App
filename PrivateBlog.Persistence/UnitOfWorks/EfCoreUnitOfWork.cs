@@ -1,12 +1,13 @@
-﻿using PrivateBlog.Application.Contracts.Persisntece;
+using PrivateBlog.Persistence.Data;
+using PrivateBlog.Application.Contracts.Persisntece;
 
 namespace PrivateBlog.Persistence.UnitOfWorks
 {
     public class EfCoreUnitOfWork : IUnitOfWork
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EfCoreUnitOfWork(DataContext context)
+        public EfCoreUnitOfWork(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -22,3 +23,4 @@ namespace PrivateBlog.Persistence.UnitOfWorks
         }
     }
 }
+

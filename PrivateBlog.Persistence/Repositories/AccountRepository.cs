@@ -1,4 +1,5 @@
-﻿using PrivateBlog.Application.Contracts.Repositories;
+using PrivateBlog.Persistence.Data;
+using PrivateBlog.Application.Contracts.Repositories;
 using PrivateBlog.Application.UseCases.Account.Commands.Login;
 using Microsoft.AspNetCore.Identity;
 using PrivateBlog.Persistence.Entities;
@@ -12,9 +13,9 @@ namespace PrivateBlog.Persistence.Repositories
     {
         private readonly SignInManager<ApplicationUser> _signinManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public AccountRepository(SignInManager<ApplicationUser> signinManager, UserManager<ApplicationUser> userManager, DataContext context)
+        public AccountRepository(SignInManager<ApplicationUser> signinManager, UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _signinManager = signinManager;
             _userManager = userManager;
@@ -90,3 +91,4 @@ namespace PrivateBlog.Persistence.Repositories
         }
     }
 }
+

@@ -1,16 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PrivateBlog.Application.Contracts.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
+using PrivateBlog.Persistence.Data;
+using System.Collections.Generic;
+using PrivateBlog.Persistence.Data;
+using System.Text;
+using PrivateBlog.Persistence.Data;
 
 namespace PrivateBlog.Persistence.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public Repository(DataContext context)
+        public Repository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -44,3 +47,4 @@ namespace PrivateBlog.Persistence.Repositories
         }
     }
 }
+

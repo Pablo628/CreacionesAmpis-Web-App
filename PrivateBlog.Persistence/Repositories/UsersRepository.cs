@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+using PrivateBlog.Persistence.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PrivateBlog.Application.Contracts.Pagination;
 using PrivateBlog.Application.Contracts.Repositories;
@@ -12,10 +13,10 @@ namespace PrivateBlog.Persistence.Repositories
 {
     public class UsersRepository : IUsersRepository
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UsersRepository(DataContext context, UserManager<ApplicationUser> userManager)
+        public UsersRepository(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -149,3 +150,4 @@ namespace PrivateBlog.Persistence.Repositories
         }
     }
 }
+

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+using PrivateBlog.Persistence.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PrivateBlog.Application.Contracts.Persisntece;
 using PrivateBlog.Application.Contracts.Repositories;
+using PrivateBlog.Application.Dependencies.Repositories;
 using PrivateBlog.Persistence.Entities;
 using PrivateBlog.Persistence.Repositories;
 using PrivateBlog.Persistence.Seeding;
@@ -14,7 +16,7 @@ namespace PrivateBlog.Persistence
     {
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer("name=PrivateBlogConnectionString");
             });
@@ -24,6 +26,14 @@ namespace PrivateBlog.Persistence
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IRolesRepository, RolesRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IShipmentRepository, ShipmentRepository>();
 
             services.AddTransient<SeedDb>();
 
@@ -45,7 +55,7 @@ namespace PrivateBlog.Persistence
                 options.SignIn.RequireConfirmedEmail = false; // TODO: Change this to true in production
                 options.User.RequireUniqueEmail = true;
             }).AddSignInManager<SignInManager<ApplicationUser>>()
-              .AddEntityFrameworkStores<DataContext>()
+              .AddEntityFrameworkStores<ApplicationDbContext>()
               .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
@@ -62,3 +72,4 @@ namespace PrivateBlog.Persistence
         }
     }
 }
+

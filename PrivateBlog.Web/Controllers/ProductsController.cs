@@ -57,7 +57,7 @@ namespace PrivateBlog.Web.Controllers
 
         [HttpPost]
         // [RequirePermission(PermissionCodesCatalog.CREATE_PRODUCTS)]
-        public async Task<IActionResult> Create(/* CreateProductDTO dto */)
+        public async Task<IActionResult> CreatePost(/* CreateProductDTO dto */)
         {
             try
             {

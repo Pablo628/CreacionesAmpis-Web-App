@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using PrivateBlog.Persistence.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
+using PrivateBlog.Persistence.Data;
+using System.Collections.Generic;
+using PrivateBlog.Persistence.Data;
+using System.Text;
+using PrivateBlog.Persistence.Data;
 
 namespace PrivateBlog.Persistence.Seeding
 {
     public class SeedDb
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public SeedDb(DataContext context, UserManager<ApplicationUser> userManager)
+        public SeedDb(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -25,3 +28,4 @@ namespace PrivateBlog.Persistence.Seeding
         }
     }
 }
+

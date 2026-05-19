@@ -1,7 +1,10 @@
-﻿using PrivateBlog.Application.Contracts.Security;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PrivateBlog.Application.Contracts.Security;
+using System;
+using PrivateBlog.Persistence.Data;
+using System.Collections.Generic;
+using PrivateBlog.Persistence.Data;
+using System.Text;
+using PrivateBlog.Persistence.Data;
 using static PrivateBlog.Application.Contracts.Security.PermissionCodesCatalog;
 using Microsoft.EntityFrameworkCore;
 using PrivateBlog.Domain.Entities.Account;
@@ -10,9 +13,9 @@ namespace PrivateBlog.Persistence.Seeding
 {
     public class PermissionsSeeder
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public PermissionsSeeder(DataContext context)
+        public PermissionsSeeder(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -34,3 +37,4 @@ namespace PrivateBlog.Persistence.Seeding
         }
     }
 }
+
